@@ -1,12 +1,12 @@
 import React, { createContext, useState, useContext } from "react";
-import { Pet } from "../types";
+import { Pet, PetOperationResponse } from "../types";
 
 type PetContextType = {
   pets: Pet[];
-  addPet: (pet: Pet) => void;
-  updatePet: (pet: Pet) => void;
+  addPet: (pet: Pet) => PetOperationResponse;
+  updatePet: (pet: Pet) => PetOperationResponse;
   deletePet: (id: string) => void;
-  searchPets: (query: string) => void;
+  searchPets: (query: string) => Pet[];
 };
 
 const PetContext = createContext<PetContextType | undefined>(undefined);
@@ -16,11 +16,25 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [pets, setPets] = useState<Pet[]>([]);
 
-  const addPet = (pet: Pet) => {
-    setPets([...pets, pet]);
+  const addPet = (newPet: Pet): PetOperationResponse => {
+    // Prevent duplicate names:
+    const nameFilteredPets = pets.filter((existingPet) => existingPet.name.toUpperCase() === newPet.name.toUpperCase()
+    )
+
+    if (nameFilteredPets.length > 0) return {
+      success: false,
+      message: "Pet names must be unique"
+    }
+
+    setPets([...pets, newPet]);
+
+    return {
+      success: true
+    }
+
   };
 
-  const updatePet = (updatedPet: Pet) => {
+  const updatePet = (updatedPet: Pet): PetOperationResponse => {
     const newPets = pets.map((pet) => {
       if (pet.id === updatedPet.id) {
         return updatedPet;
@@ -28,14 +42,19 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({
       return pet;
     });
     setPets(newPets);
+    return {
+      success: true
+    }
   };
 
   const deletePet = (id: string) => {
-    setPets(pets.filter((pet) => pet.id === id));
+    setPets(pets.filter((pet) => pet.id !== id));
   };
 
   // TODO: Implement search functionality
-  const searchPets = () => {};
+  const searchPets = (searchName: string) => {
+    return pets.filter((pet) => pet.name.toUpperCase().includes(searchName.toUpperCase()))
+  };
 
   return (
     <PetContext.Provider

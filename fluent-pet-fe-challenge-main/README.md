@@ -26,25 +26,25 @@ Here is screenshot of the app:
 
 1. Pet Management Issues:
 
-   - Adding new pets doesn't preserve existing pets
-   - Updating pets doesn't work correctly
-   - Delete functionality is broken
-   - Duplicate pet names allowed
+   - Adding new pets doesn't preserve existing pets // Unsure what the issue is; previously added pets are not affected by adding new ones
+   - Updating pets doesn't work correctly // Added "cancel update" feature, and clear fields on submit
+   - Delete functionality is broken // Done
+   - Duplicate pet names allowed // Done
 
 2. Form Validation:
 
-   - No validation for empty fields
-   - Age field accepts invalid inputs
+   - No validation for empty fields // Done
+   - Age field accepts invalid inputs // Done
 
 3. Typescript:
-   - There are some typescript errors and ignores in the code
-   - Make sure to fix them
+   - There are some typescript errors and ignores in the code // Done 
+   - Make sure to fix them // Done
 
 ## Features to Implement
 
 1. Search Functionality:
 
-   - Add ability to search pets by name
+   - Add ability to search pets by name // Done
    - Implement filtering options
 
 2. Data Persistence:
@@ -62,8 +62,8 @@ Here is screenshot of the app:
 
 ## Bonus Features (Optional)
 
-1. Add Pet Category (Dog, Cat, Bird, etc.)
-2. Add Pet Breed
+1. Add Pet Category (Dog, Cat, Bird, etc.) // Started, ran out of time
+2. Add Pet Breed // Started, ran out of time
 3. Add Authentication (Login, Register) connected to test Firebase backend
 
 ## Evaluation Criteria
